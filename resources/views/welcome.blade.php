@@ -16,7 +16,7 @@ dir="ltr"
     </head>
     <body >
         <div id="app">
-            {{-- <router-view></router-view> --}}
+
             
         </div>
 
@@ -25,6 +25,6 @@ dir="ltr"
         <script>
             
         </script>
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
     </body>
 </html>

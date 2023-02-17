@@ -1,15 +1,10 @@
 import './bootstrap';
+import router from './router/router'
 import {createApp} from 'vue'
-import {createRouter, createWebHistory} from 'vue-router';
+import store from './store'
+import CoreuiVue from '@coreui/vue'
+import CIcon from '@coreui/icons-vue'
+import { iconsSet as icons } from '@/assets/icons'
 import App from './App.vue'
-const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-        {
-            path: '/',
-            component: () => import('./pages/index.vue')
-        },
-    ],
-})
 
-createApp(App).use(router).mount("#app")
+createApp(App).use(CIcon).use(store).use(router).use(CoreuiVue).provide('icons', icons).component('CIcon', CIcon).mount("#app")

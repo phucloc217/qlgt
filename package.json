@@ -8,14 +8,26 @@
         "axios": "^1.3.2",
         "laravel-vite-plugin": "^0.7.2",
         "lodash": "^4.17.19",
+        "node-sass": "^8.0.0",
         "postcss": "^8.1.14",
         "sass": "^1.58.1",
+        "sass-loader": "^13.2.0",
+        "style-loader": "^3.3.1",
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@coreui/chartjs": "^3.0.0",
+        "@coreui/coreui": "^4.2.3",
+        "@coreui/icons": "^2.1.0",
+        "@coreui/icons-vue": "2.0.0",
+        "@coreui/utils": "^1.3.1",
+        "@coreui/vue": "^4.5.0",
+        "@coreui/vue-chartjs": "2.0.1",
         "@vitejs/plugin-vue": "^4.0.0",
+        "core-js": "^3.26.1",
         "vue": "^3.2.47",
         "vue-loader": "^17.0.1",
-        "vue-router": "^4.1.6"
+        "vue-router": "^4.1.6",
+        "vuex": "^4.0.2"
     }
 }
