@@ -8,6 +8,7 @@ import {
   CNavGroup,
   CNavTitle,
 } from '@coreui/vue'
+import * as icon from '@coreui/icons';
 import nav from '../_nav'
 
 const normalizePath = (path) =>
@@ -48,6 +49,7 @@ const AppSidebarNav = defineComponent({
     CNavItem,
     CNavGroup,
     CNavTitle,
+
   },
   setup() {
     const route = useRoute()
