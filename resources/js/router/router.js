@@ -5,19 +5,26 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            name: 'Home',
+            name: 'Trang chủ',
             component: DefaultLayout,
             redirect: '/thongke',
             children: [
               {
                 path: '/thongke',
-                name: 'Thongke',
+                name: 'Thống kê',
                 component: () =>
                   import('../pages/Dashboard.vue'),
-              }],
+              },
+              {
+                path: '/thanhvien',
+                name: 'Thành viên',
+                component: () =>
+                  import('../pages/ListMember.vue'),
+              }
+            ],
         },
         {
-            path: '/login',
+            path: '/dangnhap',
             component: () => import('../pages/login.vue')
         },
     ],
