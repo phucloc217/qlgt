@@ -8,4 +8,11 @@ import * as icon from '@coreui/icons';
 import { iconsSet as icons } from '@/assets/icons'
 import App from './App.vue'
 
-createApp(App).use(CIcon).use(store).use(router).use(CoreuiVue).use(icon).provide('icons', icons).component('CIcon', CIcon).mount("#app")
+createApp(App).
+use(router).
+use(CIcon).
+use(store).
+use(CoreuiVue).
+use(icon).
+provide('icons', icons).
+component('CIcon', CIcon).mount("#app")
