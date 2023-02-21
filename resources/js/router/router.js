@@ -33,6 +33,12 @@ const router = createRouter({
                 component: () =>
                   import('../pages/QRCode.vue'),
               },
+              {
+                path: 'diemdanh',
+                name: 'Điểm Danh',
+                component: () =>
+                  import('../pages/ScanQR.vue'),
+              },
 
             ],
         },
