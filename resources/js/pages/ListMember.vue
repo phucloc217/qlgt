@@ -76,10 +76,10 @@ export default {
   mounted() {
     window.JSZip = jsZip;
     $("#table").DataTable({
-      dom: 'Bfrtip',
+      "dom": 'Bfrtip',
       "paging": true,
       "searching": true,
-      responsive: true,
+      "responsive": true,
       "language": {
         "paginate": {
           "previous": "Trang trước",
