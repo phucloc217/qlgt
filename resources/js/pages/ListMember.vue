@@ -25,8 +25,18 @@
           <td>038.473.1507</td>
           <td>Mẹ Thiên Chúa</td>
           <td>Bình thường</td>
-          <td></td>
-          <td>d</td>
+          <td><CIcon :icon="cilOptions" size="xl"/></td>
+          <td>
+            <CDropdown>
+  <CDropdownToggle><CIcon :icon="cilOptions" size="xl"/></CDropdownToggle>
+  <CDropdownMenu>
+    <CDropdownItem href="#">Action</CDropdownItem>
+    <CDropdownItem href="#">Another action</CDropdownItem>
+    <CDropdownItem href="#">Something else here</CDropdownItem>
+  </CDropdownMenu>
+</CDropdown>
+
+          </td>
         </tr>
       </tbody>
       <tfoot>
@@ -57,21 +67,38 @@ import("datatables.net-buttons/js/buttons.html5.js");
 import("datatables.net-buttons/js/buttons.print.js");
 import("datatables.net-responsive-bs5");
 import("datatables.net-searchpanes-bs5");
-
+import { CIcon } from '@coreui/icons-vue';
+import { freeSet } from '@coreui/icons'
 export default {
+  components: {
+    CIcon
+  },
+  setup() {
+    return {
+      cilOptions,
+    }
+  },
   mounted() {
     window.JSZip = jsZip;
     $("#table").DataTable({
-    dom: "bfrtip",
-    buttons: ["excel", "pdf", "print"],
-    paging: true,
-    language: {
-      "paginate": {
-        "previous": "Trang trước",
-        "next": "Trang sau",
-      },
-      search: "Tìm kiếm",
-  }
+      dom: 'Bfrtip',
+            "paging": true,
+            "searching": true,
+            responsive: false,
+            "language": {
+                "paginate": {
+                    "previous": "Trang trước",
+                    "next": "Trang sau",
+                },
+                "search": "Tìm kiếm",
+                "lengthMenu": "Hiển thị _MENU_ mục",
+                "info": "",
+                "infoEmpty": "Không có kết quả để hiển thị",
+                "zeroRecords": "Không có kết quả để hiển thị",
+            },
+            buttons: [
+                'excel'
+            ],
   });
   },
 };

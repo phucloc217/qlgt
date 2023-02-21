@@ -23,35 +23,28 @@
                 <CFormLabel for="inputAddress">Địa chỉ</CFormLabel>
                 <CFormInput id="inputAddress" placeholder="Địa chỉ" />
               </CCol>
-              <CCol :xs="12">
-                <CFormLabel for="inputAddress2">Address 2</CFormLabel>
-                <CFormInput
-                  id="inputAddress2"
-                  placeholder="Apartment, studio, or floor"
-                />
+              <CCol :md="12">
+                <CFormLabel for="ghichu">Ghi chú</CFormLabel>
+                <CFormTextarea id="ghichu" placeholder="Ghi chú" />
               </CCol>
               <CCol :md="6">
-                <CFormLabel for="inputCity">City</CFormLabel>
-                <CFormInput id="inputCity" />
+                <CFormLabel for="sdt">Số điện thoại</CFormLabel>
+                <CFormInput id="sdt" placeholder="Số điện thoại" type="tel"/>
               </CCol>
-              <CCol :md="4">
+              <CCol :md="6">
                 <CFormLabel for="inputState">Giáo họ</CFormLabel>
                 <CFormSelect id="inputState">
-                  <option>Mẹ Thiên Chúa.</option>
+                  <option>Mẹ Thiên Chúa</option>
                   <option>Fatima</option>
                   <option>Vô Nhiễm</option>
                   <option>Truyền Tin</option>
                 </CFormSelect>
               </CCol>
-              <CCol :md="2">
-                <CFormLabel for="inputZip">Zip</CFormLabel>
-                <CFormInput id="inputZip" />
-              </CCol>
               <CCol :xs="12">
                 <CFormCheck
                   id="gridCheck"
                   type="checkbox"
-                  label="Check me out"
+                  label="Đã học xong GL Hồng Ân"
                 />
               </CCol>
               <CCol :xs="12">
@@ -62,6 +55,7 @@
 </template>
   
 <script>
+
 import $ from "jquery";
 import jsZip from"jszip";
 import("pdfmake");
