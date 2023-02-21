@@ -1,47 +1,63 @@
 <template>
   <div>
-    <table id="table" class="table table-info table-striped display nowrap p-3 mt-2 shadow p-3 mb-5 bg-body rounded">
-      <thead >
-        <th>Mã</th>
-        <th>Tên thánh</th>
-        <th>Họ</th>
-        <th>Tên</th>
-        <th>Ngày sinh</th>
-        <th>Số điện thoại</th>
-        <th>Giáo họ</th>
-        <th>Trạng thái</th>
-        <th>Ghi chú</th>
-        <th>Thao tác</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2302201</td>
-          <td>Đaminh</td>
-          <td>Nguyễn Phúc Lộc</td>
-          <td>21/07/2001</td>
-          <td>038.473.1507</td>
-          <td>Mẹ Thiên Chúa</td>
-          <td>Bình thường</td>
-          <td></td>
-          <td></td>
-          <td>d</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <thead>
-          <th>Mã</th>
-          <th>Tên thánh</th>
-          <th>Họ</th>
-          <th>Tên</th>
-          <th>Ngày sinh</th>
-          <th>Số điện thoại</th>
-          <th>Giáo họ</th>
-          <th>Trạng thái</th>
-          <th>Ghi chú</th>
-          <th>Thao tác</th>
-        </thead>
-      </tfoot>
-    </table>
+    <CForm class="row g-3">
+              <CCol :md="3">
+                <CFormLabel for="tenthanh">Tên thánh</CFormLabel>
+                <CFormInput id="tenthanh" type="text" />
+              </CCol>
+              <CCol :md="9">
+                <CFormLabel for="hoten">Họ và tên</CFormLabel>
+                <CFormInput id="hoten" type="text" />
+              </CCol>
+
+                <CCol :md="6">
+                  <CFormLabel for="tencha">Tên thánh, họ tên cha</CFormLabel>
+                  <CFormInput id="tencha" type="text" />
+              </CCol>
+              <CCol :md="6">
+                <CFormLabel for="tenme">Tên thánh, họ tên mẹ</CFormLabel>
+                <CFormInput id="tenme" type="text" />
+              </CCol>
+    
+              <CCol :xs="12">
+                <CFormLabel for="inputAddress">Địa chỉ</CFormLabel>
+                <CFormInput id="inputAddress" placeholder="Địa chỉ" />
+              </CCol>
+              <CCol :xs="12">
+                <CFormLabel for="inputAddress2">Address 2</CFormLabel>
+                <CFormInput
+                  id="inputAddress2"
+                  placeholder="Apartment, studio, or floor"
+                />
+              </CCol>
+              <CCol :md="6">
+                <CFormLabel for="inputCity">City</CFormLabel>
+                <CFormInput id="inputCity" />
+              </CCol>
+              <CCol :md="4">
+                <CFormLabel for="inputState">Giáo họ</CFormLabel>
+                <CFormSelect id="inputState">
+                  <option>Mẹ Thiên Chúa.</option>
+                  <option>Fatima</option>
+                  <option>Vô Nhiễm</option>
+                  <option>Truyền Tin</option>
+                </CFormSelect>
+              </CCol>
+              <CCol :md="2">
+                <CFormLabel for="inputZip">Zip</CFormLabel>
+                <CFormInput id="inputZip" />
+              </CCol>
+              <CCol :xs="12">
+                <CFormCheck
+                  id="gridCheck"
+                  type="checkbox"
+                  label="Check me out"
+                />
+              </CCol>
+              <CCol :xs="12">
+                <CButton type="submit" color="primary">Lưu</CButton>
+              </CCol>
+            </CForm>
   </div>
 </template>
   
@@ -58,20 +74,7 @@ import("datatables.net-searchpanes-bs5");
 
 export default {
   mounted() {
-    window.JSZip = jsZip;
-    $("#table").DataTable({
-    dom: "Bfrtip",
-    buttons: ["excel", "pdf", "print"],
-    paging: true,
-    language: {
-      "paginate": {
-        "previous": "Trang trước",
-        "next": "Trang sau",
-        
-      },
-      search: "Tìm kiếm",
-  }
-  });
+   
   },
 };
 </script>

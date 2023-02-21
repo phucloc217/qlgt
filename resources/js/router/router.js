@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory,createWebHashHistory,createMemoryHistory } from 'vue-router';
 import DefaultLayout from '../pages/index.vue'
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes: [
         {
             path: '/',
@@ -22,7 +22,7 @@ const router = createRouter({
                   import('../pages/ListMember.vue'),
               },
               {
-                path: '/thanhvien/them',
+                path: 'themthanhvien',
                 name: 'Thêm thành viên',
                 component: () =>
                   import('../pages/AddMember.vue'),

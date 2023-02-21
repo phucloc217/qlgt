@@ -1,7 +1,8 @@
 <template>
   <div>
-    <table id="table" class="table table-info table-striped display nowrap p-3 mt-2 shadow p-3 mb-5 bg-body rounded">
-      <thead >
+    <table id="table" class="table table-secondary table-striped display nowrap p-3 mt-2 shadow p-3 mb-5 bg-body rounded">
+      <thead>
+        <tr>
         <th>Mã</th>
         <th>Tên thánh</th>
         <th>Họ</th>
@@ -12,23 +13,24 @@
         <th>Trạng thái</th>
         <th>Ghi chú</th>
         <th>Thao tác</th>
+      </tr>
       </thead>
       <tbody>
         <tr>
           <td>2302201</td>
           <td>Đaminh</td>
-          <td>Nguyễn Phúc Lộc</td>
+          <td>Nguyễn Phúc</td>
+          <td>Lộc</td>
           <td>21/07/2001</td>
           <td>038.473.1507</td>
           <td>Mẹ Thiên Chúa</td>
           <td>Bình thường</td>
           <td></td>
-          <td></td>
           <td>d</td>
         </tr>
       </tbody>
       <tfoot>
-        <thead>
+        <tr>
           <th>Mã</th>
           <th>Tên thánh</th>
           <th>Họ</th>
@@ -39,7 +41,7 @@
           <th>Trạng thái</th>
           <th>Ghi chú</th>
           <th>Thao tác</th>
-        </thead>
+        </tr>
       </tfoot>
     </table>
   </div>
@@ -60,14 +62,13 @@ export default {
   mounted() {
     window.JSZip = jsZip;
     $("#table").DataTable({
-    dom: "Bfrtip",
+    dom: "bfrtip",
     buttons: ["excel", "pdf", "print"],
     paging: true,
     language: {
       "paginate": {
         "previous": "Trang trước",
         "next": "Trang sau",
-        
       },
       search: "Tìm kiếm",
   }
