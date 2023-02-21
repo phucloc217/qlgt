@@ -27,6 +27,12 @@ const router = createRouter({
                 component: () =>
                   import('../pages/AddMember.vue'),
               },
+              {
+                path: 'maqr',
+                name: 'Mã QR',
+                component: () =>
+                  import('../pages/QRCode.vue'),
+              },
 
             ],
         },

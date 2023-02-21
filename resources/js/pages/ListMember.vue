@@ -32,9 +32,8 @@
                 <CIcon icon="cilOptions" size="md" />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem href="#">Action</CDropdownItem>
-                <CDropdownItem href="#">Another action</CDropdownItem>
-                <CDropdownItem href="#">Something else here</CDropdownItem>
+                <CDropdownItem href="#">Chỉnh sửa</CDropdownItem>
+                <CDropdownItem href="#">Xóa</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
 
@@ -80,7 +79,7 @@ export default {
       dom: 'Bfrtip',
       "paging": true,
       "searching": true,
-      responsive: false,
+      responsive: true,
       "language": {
         "paginate": {
           "previous": "Trang trước",

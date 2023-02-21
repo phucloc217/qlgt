@@ -45,6 +45,7 @@
                   id="gridCheck"
                   type="checkbox"
                   label="Đã học xong GL Hồng Ân"
+                  checked
                 />
               </CCol>
               <CCol :xs="12">

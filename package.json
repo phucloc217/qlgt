@@ -31,6 +31,7 @@
         "datatables.net-searchpanes-bs5": "^2.1.1",
         "jszip": "^3.10.1",
         "pdfmake": "^0.2.7",
+        "qrcode.vue": "^3.3.3",
         "vue": "^3.2.47",
         "vue-loader": "^17.0.1",
         "vue-router": "^4.1.6",

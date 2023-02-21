@@ -1,6 +1,6 @@
 export default [
   {
-    component: 'CNavLink',
+    component: 'CNavItem',
     name: 'Thống kê',
     to: '/thongke',
     icon: 'cil-speedometer',
@@ -10,13 +10,13 @@ export default [
     name: 'Thành viên',
   },
   {
-    component: 'CNavLink',
+    component: 'CNavItem',
     name: 'Danh sách thành viên',
     to: '/thanhvien',
     icon: 'cil-notes',
   },
   {
-    component: 'CNavLink',
+    component: 'CNavItem',
     name: 'Thêm thành viên',
     to: '/themthanhvien',
     icon: 'cil-plus',
@@ -56,7 +56,7 @@ export default [
   {
     component: 'CNavItem',
     name: 'Mã QR',
-    to: '/maQR',
+    to: '/maqr',
     icon: 'cil-qr-code',
   },
 ]
