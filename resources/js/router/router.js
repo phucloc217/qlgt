@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory,createWebHashHistory,createMemoryHistory } from 'vue-router';
 import DefaultLayout from '../pages/index.vue'
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes: [
         {
             path: '/',
@@ -25,6 +25,7 @@ const router = createRouter({
         },
         {
             path: '/dangnhap',
+            name: "Đăng nhập",
             component: () => import('../pages/login.vue')
         },
     ],
