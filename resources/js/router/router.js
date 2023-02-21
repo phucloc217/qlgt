@@ -10,17 +10,24 @@ const router = createRouter({
             redirect: '/thongke',
             children: [
               {
-                path: '/thongke',
+                path: 'thongke',
                 name: 'Thống kê',
                 component: () =>
                   import('../pages/Dashboard.vue'),
               },
               {
-                path: '/thanhvien',
+                path: 'thanhvien',
                 name: 'Thành viên',
                 component: () =>
                   import('../pages/ListMember.vue'),
-              }
+              },
+              {
+                path: '/thanhvien/them',
+                name: 'Thêm thành viên',
+                component: () =>
+                  import('../pages/AddMember.vue'),
+              },
+
             ],
         },
         {
