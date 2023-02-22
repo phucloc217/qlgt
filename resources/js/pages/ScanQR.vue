@@ -7,41 +7,27 @@
         </qr-stream>
       </div>
     </div>
-    
+
   </div>
   <div class="row result">
-      Đã điểm danh: {{data}}
-    </div>
-<!-- <div>
-    <div class="center stream">
-      <qr-stream @decode="onDecode" class="mb">
-        <div style="color: red;" class="frame"></div>
-      </qr-stream>
-    </div>
-    <div class="result">
-      Result: {{data}}
-    </div>
-  </div> -->
-  </template>
+    Đã điểm danh: {{ data }}
+  </div>
+</template>
 
 <script>
-import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
+import { QrStream } from 'vue3-qr-reader';
 
 export default {
 
   components: {
     QrStream,
-    QrCapture,
-    QrDropzone
   },
   setup() {
 
-    function onDecode(data) {
-      state.data = data
-    }
-    return {
-      onDecode
-    }
+
+    // return {
+    //   onDecode
+    // }
   },
   data() {
     const options = [
@@ -50,33 +36,21 @@ export default {
       { text: "centered text", value: this.paintCenterText },
       { text: "bounding box", value: this.paintBoundingBox },
     ]
+    let data = []
 
-    const selected = options[1]
 
-    return { selected, options }
+    return {
+      options,
+      data,
+
+    }
   },
 
   methods: {
-    onDecode(decodedString) {
-      // ...
+    onDecode(data) {
+      this.data = data
+      alert(this.data)
     },
-    paintOutline(detectedCodes, ctx) {
-      for (const detectedCode of detectedCodes) {
-        const [firstPoint, ...otherPoints] = detectedCode.cornerPoints
-
-        ctx.strokeStyle = "red";
-
-        ctx.beginPath();
-        ctx.moveTo(firstPoint.x, firstPoint.y);
-        for (const { x, y } of otherPoints) {
-          ctx.lineTo(x, y);
-        }
-        ctx.lineTo(firstPoint.x, firstPoint.y);
-        ctx.closePath();
-        ctx.stroke();
-      }
-    },
-
     paintBoundingBox(detectedCodes, ctx) {
       for (const detectedCode of detectedCodes) {
         const { boundingBox: { x, y, width, height } } = detectedCode

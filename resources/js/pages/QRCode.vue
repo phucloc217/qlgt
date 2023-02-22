@@ -2,7 +2,7 @@
   <div class="container d-flex align-items-center justify-content-center p-5">
     <div class="p-3 mb-2 bg-white m-auto w-auto shadow mb-5 bg-body rounded">
       <div>
-        <qrcode-vue :value="value" :size="size" level="H" class="m-auto" id="qrcode" />
+        <qrcode-vue :value="value" :size="size" level="H" margin="2" class="m-auto" id="qrcode" />
       </div>
       <div class="row mt-3 m-auto w-100">
         <CButton type="submit" color="primary"  @click="download" >
@@ -20,7 +20,7 @@ import QrcodeVue from 'qrcode.vue'
 export default {
   data() {
     return {
-      value: '12354',
+      value: '12354-Nguyễn Văn A - Mẹ Thiên Chúa',
       size: 300,
     }
   },
