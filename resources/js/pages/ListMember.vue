@@ -3,27 +3,27 @@
     <table id="table" class="table table-secondary table-striped display nowrap mt-2 shadow mb-5 bg-body rounded">
       <thead>
         <tr>
-          <th>Mã</th>
-          <th>Tên thánh</th>
-          <th>Họ</th>
-          <th>Tên</th>
-          <th>Ngày sinh</th>
-          <th>Số điện thoại</th>
-          <th>Giáo họ</th>
-          <th>Trạng thái</th>
+          <th class="export-col">Mã</th>
+          <th class="export-col">Tên thánh</th>
+          <th class="export-col">Họ</th>
+          <th class="export-col">Tên</th>
+          <th class="export-col">Ngày sinh</th>
+          <th class="export-col">Số điện thoại</th>
+          <th class="export-col">Giáo họ</th>
+          <th class="export-col">Trạng thái</th>
           <th>Thao tác</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>2302201</td>
-          <td>Đaminh</td>
-          <td>Nguyễn Phúc</td>
-          <td>Lộc</td>
-          <td>21/07/2001</td>
-          <td>038.473.1507</td>
-          <td>Mẹ Thiên Chúa</td>
-          <td>Bình thường</td>
+          <td class="export-col">2302201</td>
+          <td class="export-col">Đaminh</td>
+          <td class="export-col">Nguyễn Phúc</td>
+          <td class="export-col">Lộc</td>
+          <td class="export-col">21/07/2001</td>
+          <td class="export-col">038.473.1507</td>
+          <td class="export-col">Mẹ Thiên Chúa</td>
+          <td class="export-col">Bình thường</td>
           <td>
 
             <CDropdown>
@@ -39,14 +39,14 @@
           </td>
         </tr>
         <tr>
-          <td>123123123</td>
-          <td>Đaminh</td>
-          <td>Nguyễn Phúc</td>
-          <td>Lộc</td>
-          <td>21/07/2001</td>
-          <td>038.473.1507</td>
-          <td>Mẹ Thiên Chúa</td>
-          <td>Bình thường</td>
+          <td class="export-col">123123123</td>
+          <td class="export-col">Đaminh</td>
+          <td class="export-col">Nguyễn Phúc</td>
+          <td class="export-col">Lộc</td>
+          <td class="export-col">21/07/2001</td>
+          <td class="export-col">038.473.1507</td>
+          <td class="export-col">Mẹ Thiên Chúa</td>
+          <td class="export-col">Bình thường</td>
           <td>
 
             <CDropdown>
@@ -116,18 +116,20 @@ export default {
         "infoEmpty": "Không có kết quả để hiển thị",
         "zeroRecords": "Không có kết quả để hiển thị",
       },
-      "columnDefs":
-        [{
-          targets: [1, 2, 3, 4],
-          className: 'noVis'
-        }],
       "buttons": [
-        'excel',
-        'print',
         {
-          extend: 'colvis',
-          columns: ':not(.noVis)'
-        }
+          extend: 'excel',
+          exportOptions: {
+            columns: '.export-col'
+          }
+        },
+        {
+          extend: 'print',
+          exportOptions: {
+            columns: '.export-col'
+          }
+        },
+        'colvis'
       ],
     });
   },
