@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property int $trangthai
+ * 
  *
  * @package App\Models
  */
@@ -44,7 +45,7 @@ class Thanhvien extends Model
 	protected $dates = [
 		'ngaysinh'
 	];
-
+	protected $hidden = ['matkhau'];
 	protected $fillable = [
 		'tenthanh',
 		'hoten',
@@ -59,4 +60,9 @@ class Thanhvien extends Model
 		'matkhau',
 		'trangthai'
 	];
+
+	public function giaoho()
+	{
+		return $this->belongsTo(Giaoho::class, 'giaoho');
+	}
 }
