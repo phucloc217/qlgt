@@ -38,8 +38,9 @@ class Thanhvien extends Model
 
 	protected $casts = [
 		'giaoho' => 'int',
-		'giaoly' => 'bool',
-		'trangthai' => 'int'
+		'giaoly' => 'int',
+		'trangthai' => 'int',
+		'ngaysinh'=>'datetime:dd-mm-yyyy',
 	];
 
 	protected $dates = [
@@ -47,6 +48,7 @@ class Thanhvien extends Model
 	];
 	protected $hidden = ['matkhau'];
 	protected $fillable = [
+		'ma',
 		'tenthanh',
 		'hoten',
 		'ngaysinh',

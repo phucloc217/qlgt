@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Thanhvien;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\Response;
 class ThanhVienController extends Controller
 {
     /**
@@ -13,7 +16,7 @@ class ThanhVienController extends Controller
      */
     public function index()
     {
-        //
+        return Thanhvien::all();
     }
 
     /**
@@ -34,7 +37,38 @@ class ThanhVienController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ma = substr(date("Y"),-2).date("m").$request->giaoho;
+        $tmp = Thanhvien::where('ma','LIKE',"%$ma%")->orderBy('ma', 'desc')->select('ma')->first();
+        if($tmp==null)
+            $ma=$ma.'01';
+        else
+        {
+            $ma =(int)$tmp['ma']; 
+            $ma++;
+        }
+        $thanhvien =[
+            'ma' => $ma,
+            'tenthanh'=>$request->tenthanh,
+            'hoten'=>$request->hoten,
+            'ngaysinh'=> $request->ngaysinh,
+            'hotencha'=>$request->hotencha,
+            'hotenme'=>$request->hotenme,
+            'diachi'=>$request->diachi,
+            'ghichu'=>$request->ghichu,
+            'giaoho'=>$request->giaoho,
+            'sdt'=>$request->sdt,
+            'giaoly'=>$request->giaoly,
+            'matkhau'=>Hash::make($request->sdt),
+            'trangthai'=>1,
+        ];
+        if(Thanhvien::create($thanhvien))
+        {
+            return response()->json($ma, Response::HTTP_CREATED);
+        }
+        else
+        {
+            return response()->json('',Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
