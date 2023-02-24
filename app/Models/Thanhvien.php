@@ -40,7 +40,7 @@ class Thanhvien extends Model
 		'giaoho' => 'int',
 		'giaoly' => 'int',
 		'trangthai' => 'int',
-		'ngaysinh'=>'datetime:dd-mm-yyyy',
+		//'ngaysinh'=>'datetime:dd-mm-yyyy',
 	];
 
 	protected $dates = [

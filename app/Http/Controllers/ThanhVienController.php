@@ -16,7 +16,7 @@ class ThanhVienController extends Controller
      */
     public function index()
     {
-        return Thanhvien::all();
+        return Thanhvien::join('giaoho','thanhvien.giaoho','=','giaoho.id')->select('thanhvien.*','giaoho.tengiaoho')->get();
     }
 
     /**

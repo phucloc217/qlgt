@@ -15,15 +15,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="export-col">2302201</td>
-          <td class="export-col">Đaminh</td>
-          <td class="export-col">Nguyễn Phúc</td>
-          <td class="export-col">Lộc</td>
-          <td class="export-col">21/07/2001</td>
-          <td class="export-col">038.473.1507</td>
-          <td class="export-col">Mẹ Thiên Chúa</td>
-          <td class="export-col">Bình thường</td>
+        <tr v-for="thanhvien in listthanhvien">
+          <td class="export-col">{{ thanhvien.ma }}</td>
+          <td class="export-col">{{ thanhvien.tenthanh }}</td>
+          <td class="export-col">{{ thanhvien.hoten.split(' ').slice(0, -1).join(' ') }}</td>
+          <td class="export-col">{{ thanhvien.hoten.split(' ').slice(-1).join(' ') }}</td>
+          <td class="export-col">{{format_date(thanhvien.ngaysinh) }}</td>
+          <td class="export-col">{{ thanhvien.sdt }}</td>
+          <td class="export-col">{{ thanhvien.tengiaoho }}</td>
+          <td class="export-col" v-if="thanhvien.trangthai == 1">Bình thường</td>
+          <td class="export-col" v-else-if="thanhvien.trangthai == 2">Tạm hoãn</td>
+          <td class="export-col" v-else-if="thanhvien.trangthai == 3">Vắng nhiều</td>
+          <td class="export-col" v-else="thanhvien.trangthai==4">Đã nghỉ</td>
           <td>
 
             <CDropdown>
@@ -38,29 +41,7 @@
 
           </td>
         </tr>
-        <tr>
-          <td class="export-col">123123123</td>
-          <td class="export-col">Đaminh</td>
-          <td class="export-col">Nguyễn Phúc</td>
-          <td class="export-col">Lộc</td>
-          <td class="export-col">21/07/2001</td>
-          <td class="export-col">038.473.1507</td>
-          <td class="export-col">Mẹ Thiên Chúa</td>
-          <td class="export-col">Bình thường</td>
-          <td>
 
-            <CDropdown>
-              <CDropdownToggle>
-                <CIcon icon="cilOptions" size="md" />
-              </CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem href="#">Chỉnh sửa</CDropdownItem>
-                <CDropdownItem href="#">Xóa</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-
-          </td>
-        </tr>
       </tbody>
       <tfoot>
         <tr>
@@ -92,46 +73,78 @@ import("datatables.net-buttons/js/buttons.print");
 import("datatables.net-buttons/js/buttons.colVis");
 import("datatables.net-responsive-bs5");
 import("datatables.net-searchpanes-bs5");
+import moment from 'moment'
 export default {
+  data() {
+    return {
+      listthanhvien: null,
+    }
+  },
+  created() {
 
+  },
+  watch: {
+    list(val) {
+      this.dt.destroy();
+      this.$nextTick(() => {
+
+        this.dt = $("#table").DataTable();
+
+      })
+
+    }
+
+  },
   setup() {
 
   },
+  methods: {
+    format_date(value) {
+      if (value) {
+        return moment(String(value)).format('DD/MM/YYYY')
+      }
+    },
+  },
   mounted() {
+    axios.get('http://127.0.0.1:8000/api/thanhvien')
+      .then(data => this.listthanhvien = data.data)
+      .catch(response => console.log(response));
     window.JSZip = jsZip;
+    setTimeout(function () {
+      $("#table").DataTable({
+        "dom": 'Bfrtip',
+        "paging": true,
+        "searching": true,
+        "responsive": true,
+        "language": {
+          "paginate": {
+            "previous": "Trang trước",
+            "next": "Trang sau",
+          },
+          "search": "Tìm kiếm",
+          "lengthMenu": "Hiển thị _MENU_ mục",
+          "info": "",
+          "infoEmpty": "Không có kết quả để hiển thị",
+          "zeroRecords": "Không có kết quả để hiển thị",
+        },
+        "buttons": [
+          {
+            extend: 'excel',
+            exportOptions: {
+              columns: '.export-col'
+            }
+          },
+          {
+            extend: 'print',
+            exportOptions: {
+              columns: '.export-col'
+            }
+          },
+          'colvis'
+        ],
+      });
+    }, 1000);
 
-    $("#table").DataTable({
-      "dom": 'Bfrtip',
-      "paging": true,
-      "searching": true,
-      "responsive": true,
-      "language": {
-        "paginate": {
-          "previous": "Trang trước",
-          "next": "Trang sau",
-        },
-        "search": "Tìm kiếm",
-        "lengthMenu": "Hiển thị _MENU_ mục",
-        "info": "",
-        "infoEmpty": "Không có kết quả để hiển thị",
-        "zeroRecords": "Không có kết quả để hiển thị",
-      },
-      "buttons": [
-        {
-          extend: 'excel',
-          exportOptions: {
-            columns: '.export-col'
-          }
-        },
-        {
-          extend: 'print',
-          exportOptions: {
-            columns: '.export-col'
-          }
-        },
-        'colvis'
-      ],
-    });
   },
 };
 </script>
