@@ -39,6 +39,12 @@ const router = createRouter({
                 component: () =>
                   import('../pages/ScanQR.vue'),
               },
+              {
+                path: 'quanlytaikhoan',
+                name: 'Quản lý tài khoản',
+                component: () =>
+                  import('../pages/ListAccount.vue'),
+              },
 
             ],
         },

@@ -44,7 +44,7 @@ export default [
   {
     component: 'CNavItem',
     name: 'Quản lý tài khoản',
-    to: '/taikhoan/quanly',
+    to: '/quanlytaikhoan',
     icon: 'cil-user',
   },
   {

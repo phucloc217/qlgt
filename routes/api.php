@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GiaoHoController;
 use App\Http\Controllers\ThanhVienController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('giaoho', GiaoHoController::class);
 Route::resource('thanhvien', ThanhVienController::class);
+Route::resource('user', UserController::class);
