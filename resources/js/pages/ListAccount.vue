@@ -6,13 +6,14 @@
           <th class="export-col">STT</th>
           <th class="export-col">Tên đăng nhập</th>
           <th class="export-col">Người dùng</th>
-          <th class="export-col">Tên</th>
           <th>Thao tác</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="thanhvien in listthanhvien">
-
+        <tr v-for="(user, index) in listusers">
+          <td class="export-col">{{ index+1 }}</td>
+          <td class="export-col">{{ user.email }}</td>
+          <td class="export-col">{{ user.name }}</td>
           <td>
 
             <CDropdown>
@@ -31,14 +32,9 @@
       </tbody>
       <tfoot>
         <tr>
-          <th>Mã</th>
-          <th>Tên thánh</th>
-          <th>Họ</th>
-          <th>Tên</th>
-          <th>Ngày sinh</th>
-          <th>Số điện thoại</th>
-          <th>Giáo họ</th>
-          <th>Trạng thái</th>
+          <th class="export-col">STT</th>
+          <th class="export-col">Tên đăng nhập</th>
+          <th class="export-col">Người dùng</th>
           <th>Thao tác</th>
         </tr>
       </tfoot>

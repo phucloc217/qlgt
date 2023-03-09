@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CForm class="row g-3" v-on:submit.prevent="submitForm">
+    <CForm class="row g-3" ref="form" v-on:submit.prevent="submitForm">
       <CCol :md="3">
         <CFormLabel for="tenthanh">Tên thánh</CFormLabel>
         <CFormInput id="tenthanh" type="text" name="tenthanh" v-model="form.tenthanh" />
@@ -85,11 +85,12 @@ export default {
     submitForm() {
       axios.post('http://127.0.0.1:8000/api/thanhvien', this.form).then((res) => {
           alert(res)
+          this.$refs.form.reset();
         })
         .catch((error) => {
           console.log(error)
         }).finally(() => {
-
+          
         });
     }
   },
