@@ -51,14 +51,14 @@ class ThanhVienController extends Controller
             'tenthanh'=>$request->tenthanh,
             'hoten'=>$request->hoten,
             'ngaysinh'=> $request->ngaysinh,
-            'hotencha'=>$request->hotencha,
-            'hotenme'=>$request->hotenme,
+            'hotencha'=>$request->tencha,
+            'hotenme'=>$request->tenme,
             'diachi'=>$request->diachi,
             'ghichu'=>$request->ghichu,
             'giaoho'=>$request->giaoho,
             'sdt'=>$request->sdt,
             'giaoly'=>$request->giaoly,
-            'matkhau'=>Hash::make($request->sdt),
+            'matkhau'=>$request->sdt!=''?Hash::make($request->sdt):Hash::make('123'),
             'trangthai'=>1,
         ];
         if(Thanhvien::create($thanhvien))
