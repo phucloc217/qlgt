@@ -113,6 +113,7 @@ class ThanhVienController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $thanhvien = Thanhvien::find($id);
+        return $thanhvien->delete();
     }
 }

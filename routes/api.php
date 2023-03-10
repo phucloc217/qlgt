@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('giaoho', GiaoHoController::class);
 Route::resource('thanhvien', ThanhVienController::class);
+Route::delete('thanhvien/{id}', [ThanhVienController::class,'destroy']);
 Route::resource('user', UserController::class);

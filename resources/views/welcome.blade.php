@@ -11,7 +11,7 @@ dir="ltr"
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Giới trẻ Gx. Đại Lộ</title>
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
          @vite('resources/css/app.css')
          @vite('resources/js/app.js')
 

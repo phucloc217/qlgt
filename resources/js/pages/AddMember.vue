@@ -30,18 +30,21 @@
       </div>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <CForm class="row g-3" ref="form" v-on:submit.prevent="submitForm">
+    <CForm class="row g-3 needs-validation" novalidate @submit.prevent="submitForm" method="post">
+      <input type="hidden" name="_token" :value="csrf">
       <CCol :md="3">
         <CFormLabel for="tenthanh">Tên thánh</CFormLabel>
         <CFormInput id="tenthanh" type="text" name="tenthanh" v-model="form.tenthanh" />
       </CCol>
       <CCol :md="6">
         <CFormLabel for="hoten">Họ và tên</CFormLabel>
-        <CFormInput id="hoten" name="hoten" type="text" v-model="form.hoten" />
+        <CFormInput id="hoten" name="hoten" type="text" v-model="form.hoten" feedbackInvalid="Vui lòng nhập họ tên"
+          required />
       </CCol>
       <CCol :md="3">
         <CFormLabel for="ngaysinh">Ngày sinh</CFormLabel>
-        <CFormInput id="ngaysinh" name="ngaysinh" type="date" v-model="form.ngaysinh" />
+        <CFormInput id="ngaysinh" name="ngaysinh" type="date" v-model="form.ngaysinh"
+          feedbackInvalid="Vui lòng nhập ngày sinh" required />
       </CCol>
 
       <CCol :md="6">
@@ -59,7 +62,7 @@
       </CCol>
       <CCol :md="6">
         <CFormLabel for="giaoho">Giáo họ</CFormLabel>
-        <CFormSelect id="giaoho" name="giaoho" v-model="form.giaoho">
+        <CFormSelect id="giaoho" name="giaoho" v-model="form.giaoho" required>
           <option v-for="giaoho in listgiaoho" :value="giaoho.id">
             {{ giaoho.tengiaoho }}
           </option>
@@ -81,13 +84,21 @@
       </CCol>
 
     </CForm>
+    <button @click="notify">Notify !</button>
   </div>
 </template>
   
 <script>
 import axios from 'axios';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
+  computed: {
+    csrf() {
+      return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    },
+  },
   data() {
     return {
       listgiaoho: null,
@@ -108,10 +119,12 @@ export default {
     }
   },
   setup() {
-
-    return {
-
+    const notify = () => {
+      toast("Wow so easy !", {
+        autoClose: 1000,
+      }); // ToastOptions
     }
+    return { notify };
   },
   methods: {
     submitForm(event) {
@@ -121,16 +134,16 @@ export default {
         event.target.reset();
         this.form.giaoho = 3;
         document.getElementById('giaoly').checked = true;
-        this.form.tenthanh= '';
-        this.form.hoten= '';
-        this.form.ngaysinh= '';
-        this.form.tencha= '';
-        this.form.tenme= '';
-        this.form.diachi= '';
-        this.form.ghichu= '';
-        this.form.giaoho= 3;
-        this.form.sdt= '';
-        this.form.giaoly= 1;
+        this.form.tenthanh = '';
+        this.form.hoten = '';
+        this.form.ngaysinh = '';
+        this.form.tencha = '';
+        this.form.tenme = '';
+        this.form.diachi = '';
+        this.form.ghichu = '';
+        this.form.giaoho = 3;
+        this.form.sdt = '';
+        this.form.giaoly = 1;
       })
         .catch((error) => {
           console.log(error)
@@ -139,14 +152,34 @@ export default {
         }).finally(() => {
 
         });
+
     }
   },
   mounted() {
     axios.get('http://127.0.0.1:8000/api/giaoho')
       .then(data => this.listgiaoho = data.data)
       .catch(response => console.log(response));
+    (function () {
+      'use strict'
 
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      const forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(form => {
+          form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
   }
+
 }
 
 </script>
