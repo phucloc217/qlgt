@@ -61,7 +61,6 @@
 <script>
 import axios from 'axios';
 import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
 
 export default {
   computed: {
@@ -107,6 +106,7 @@ export default {
         this.form.giaoho = 3;
         this.form.sdt = '';
         this.form.giaoly = 1;
+        console.log(res);
         toast.success('Thêm thành công!');
       })
         .catch((error) => {

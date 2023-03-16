@@ -48,15 +48,14 @@ const router = createRouter({
                     path: "qldiemdanh",
                     name: "Quản lý điểm danh",
                     component: () => import("../pages/ListAttendance.vue"),
-                    children: [
-                        {
-                            path: "/chitiet/:id",
-                            name: "Chi tiết",
-                            component: () =>
-                                import("../pages/AttendanceDashboard.vue"),
-                        },
-                    ],
                 },
+                {
+                    path: "/chitiet/:id",
+                    name: "Chi tiết điểm danh",
+                    component: () => import("../pages/AttendanceDashboard.vue"),
+                    
+                },
+                
             ],
         },
         {

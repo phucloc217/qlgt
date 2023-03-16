@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="thanhvien in listthanhvien">
+        <tr v-for="thanhvien, index  in listthanhvien">
           <td class="export-col">{{ thanhvien.ma }}</td>
           <td class="export-col">{{ thanhvien.tenthanh }}</td>
           <td class="export-col">{{ thanhvien.hoten.split(' ').slice(0, -1).join(' ') }}</td>
@@ -28,16 +28,12 @@
           <td class="export-col" v-else-if="thanhvien.trangthai == 3">Vắng nhiều</td>
           <td class="export-col" v-else="thanhvien.trangthai==4">Đã nghỉ</td>
           <td>
+            <div class="col-2">
+              <button @click="showDeleteAlert(index, thanhvien.ma)" class="btn btn-danger btn-sm m-1">
+                <CIcon icon="cilTrash" size="md" />
+              </button>
+            </div>
 
-            <CDropdown>
-              <CDropdownToggle>
-                <CIcon icon="cilOptions" size="md" />
-              </CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem href="#">Chỉnh sửa</CDropdownItem>
-                <CDropdownItem href="#">Xóa</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
 
           </td>
         </tr>
@@ -74,10 +70,14 @@ import("datatables.net-buttons/js/buttons.colVis");
 import("datatables.net-responsive-bs5");
 import("datatables.net-searchpanes-bs5");
 import moment from 'moment'
+import { toast } from 'vue3-toastify';
+
 export default {
   data() {
     return {
       listthanhvien: null,
+      host: this.API_URL,
+      table: null,
     }
   },
   created() {
@@ -104,13 +104,37 @@ export default {
         return moment(String(value)).format('DD/MM/YYYY')
       }
     },
+    async deleteThanhVien(id) {
+      await axios.delete(this.API_URL + '/thanhvien/' + id)
+        .then(function (data) {
+          toast.success("Xóa thành công", {
+            autoClose: 1000,
+          });
+          return 1;
+        })
+        .catch(response => console.log(response));
+    },
+    showDeleteAlert(x, id) {
+      this.$swal({
+        title: 'Bạn có chắc muốn xóa thành viên ' + id + ' không?',
+        icon: 'warning',
+        confirmButtonText: 'Có',
+        cancelButtonText: 'Không',
+        showCancelButton: true
+      }, 'success').then((result) => {
+        if (result['isConfirmed']) {
+          if (this.deleteThanhVien(id))
+            document.getElementById("table").deleteRow(x + 1);
+        }
+      });
+    },
 
     async getThanhVien() {
       await axios.get(this.API_URL + '/thanhvien')
         .then(data => this.listthanhvien = data.data)
         .catch(response => console.log(response));
       window.JSZip = jsZip;
-      $("#table").DataTable({
+      this.table = $("#table").DataTable({
         "dom": 'Bfrtip',
         "paging": true,
         "searching": true,
@@ -142,7 +166,9 @@ export default {
           'colvis'
         ],
       });
-    }
+    },
+
+
   },
   mounted() {
     this.getThanhVien();

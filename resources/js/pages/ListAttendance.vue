@@ -17,10 +17,9 @@
           <td class="export-col" v-else-if="diemdanh.trangthai == 0">Đã đóng</td>
           <td class="row me-0">
             <div class="col-2">
-              <router-link v-bind:to="'chitiet/'+diemdanh.id"
-                      class="btn btn-info btn-sm m-1"
-                    >
-                    <CIcon icon="cilGraph" size="md" /></router-link>
+              <router-link v-bind:to="'qldiemdanh/chitiet/' + diemdanh.id" class="btn btn-info btn-sm m-1">
+                <CIcon icon="cilGraph" size="md" />
+              </router-link>
             </div>
             <div class="col-2">
               <a href="#" class="btn btn-warning btn-sm m-1">

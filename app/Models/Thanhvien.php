@@ -51,6 +51,7 @@ class Thanhvien extends Model
 	];
 
 	protected $fillable = [
+		'ma',
 		'tenthanh',
 		'hoten',
 		'ngaysinh',

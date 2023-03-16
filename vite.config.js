@@ -29,7 +29,8 @@ export default defineConfig({
             }
         },
         commonjsOptions: {
-            esmExternals: true 
+            esmExternals: true ,
+            "allowJs": true
          },
     }
 });
