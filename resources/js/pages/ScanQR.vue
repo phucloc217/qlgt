@@ -16,7 +16,6 @@
 
 <script>
 import { QrStream } from 'vue3-qr-reader';
-
 export default {
 
   components: {
@@ -30,17 +29,12 @@ export default {
     // }
   },
   data() {
-    const options = [
-      { text: "nothing (default)", value: undefined },
-      { text: "outline", value: this.paintOutline },
-      { text: "centered text", value: this.paintCenterText },
-      { text: "bounding box", value: this.paintBoundingBox },
-    ]
+    
     let data = []
 
 
     return {
-      options,
+      
       data,
 
     }
@@ -49,42 +43,7 @@ export default {
   methods: {
     onDecode(data) {
       this.data = data
-      alert(this.data)
-    },
-    paintBoundingBox(detectedCodes, ctx) {
-      for (const detectedCode of detectedCodes) {
-        const { boundingBox: { x, y, width, height } } = detectedCode
-
-        ctx.lineWidth = 2
-        ctx.strokeStyle = '#007bff'
-        ctx.strokeRect(x, y, width, height)
-      }
-    },
-
-    paintCenterText(detectedCodes, ctx) {
-      for (const detectedCode of detectedCodes) {
-        const { boundingBox, rawValue } = detectedCode
-
-        const centerX = boundingBox.x + boundingBox.width / 2
-        const centerY = boundingBox.y + boundingBox.height / 2
-
-        const fontSize = Math.max(12, 50 * boundingBox.width / ctx.canvas.width)
-        console.log(boundingBox.width, ctx.canvas.width)
-
-        ctx.font = `bold ${fontSize}px sans-serif`
-        ctx.textAlign = "center"
-
-        ctx.lineWidth = 3
-        ctx.strokeStyle = '#35495e'
-        ctx.strokeText(detectedCode.rawValue, centerX, centerY)
-
-        ctx.fillStyle = '#5cb984'
-        ctx.fillText(rawValue, centerX, centerY)
-      }
-    },
-
-    logErrors(promise) {
-      promise.catch(console.error)
+      this.$swal("Điểm danh thành công!", data,'success');
     }
   }
 

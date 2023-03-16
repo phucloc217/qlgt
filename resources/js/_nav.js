@@ -28,7 +28,7 @@ export default [
   {
     component: 'CNavItem',
     name: 'Quản lý điểm danh',
-    to: '/diemdanh/quanly',
+    to: '/qldiemdanh',
     icon: 'cil-calendar',
   },
   {

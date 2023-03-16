@@ -1,58 +1,69 @@
-import {createRouter, createWebHistory,createWebHashHistory,createMemoryHistory } from 'vue-router';
-import DefaultLayout from '../pages/index.vue'
+import {
+    createRouter,
+    createWebHistory,
+    createWebHashHistory,
+    createMemoryHistory,
+} from "vue-router";
+import DefaultLayout from "../pages/index.vue";
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         {
-            path: '/',
-            name: 'Trang chủ',
+            path: "/",
+            name: "Trang chủ",
             component: DefaultLayout,
-            redirect: '/thongke',
+            redirect: "/thongke",
             children: [
-              {
-                path: 'thongke',
-                name: 'Thống kê',
-                component: () =>
-                  import('../pages/Dashboard.vue'),
-              },
-              {
-                path: 'thanhvien',
-                name: 'Thành viên',
-                component: () =>
-                  import('../pages/ListMember.vue'),
-              },
-              {
-                path: 'themthanhvien',
-                name: 'Thêm thành viên',
-                component: () =>
-                  import('../pages/AddMember.vue'),
-              },
-              {
-                path: 'maqr',
-                name: 'Mã QR',
-                component: () =>
-                  import('../pages/QRCode.vue'),
-              },
-              {
-                path: 'diemdanh',
-                name: 'Điểm Danh',
-                component: () =>
-                  import('../pages/ScanQR.vue'),
-              },
-              {
-                path: 'quanlytaikhoan',
-                name: 'Quản lý tài khoản',
-                component: () =>
-                  import('../pages/ListAccount.vue'),
-              },
-
+                {
+                    path: "thongke",
+                    name: "Thống kê",
+                    component: () => import("../pages/Dashboard.vue"),
+                },
+                {
+                    path: "thanhvien",
+                    name: "Thành viên",
+                    component: () => import("../pages/ListMember.vue"),
+                },
+                {
+                    path: "themthanhvien",
+                    name: "Thêm thành viên",
+                    component: () => import("../pages/AddMember.vue"),
+                },
+                {
+                    path: "maqr",
+                    name: "Mã QR",
+                    component: () => import("../pages/QRCode.vue"),
+                },
+                {
+                    path: "diemdanh",
+                    name: "Điểm Danh",
+                    component: () => import("../pages/ScanQR.vue"),
+                },
+                {
+                    path: "quanlytaikhoan",
+                    name: "Quản lý tài khoản",
+                    component: () => import("../pages/ListAccount.vue"),
+                },
+                {
+                    path: "qldiemdanh",
+                    name: "Quản lý điểm danh",
+                    component: () => import("../pages/ListAttendance.vue"),
+                    children: [
+                        {
+                            path: "/chitiet/:id",
+                            name: "Chi tiết",
+                            component: () =>
+                                import("../pages/AttendanceDashboard.vue"),
+                        },
+                    ],
+                },
             ],
         },
         {
-            path: '/dangnhap',
+            path: "/dangnhap",
             name: "Đăng nhập",
-            component: () => import('../pages/login.vue')
+            component: () => import("../pages/login.vue"),
         },
     ],
-})
-export default router
+});
+export default router;

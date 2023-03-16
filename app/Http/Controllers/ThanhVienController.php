@@ -40,11 +40,13 @@ class ThanhVienController extends Controller
         $request->validate([
             'hoten' => 'required|max:50',
             'ngaysinh' => 'required|date|before:1/1/'.(date('Y')-17),
+            'sdt'=>'regex:/(0)[0-9]{9}/'
         ],
         [
             'hoten.required' => 'Họ tên không được để trống',
             'ngaysinh.required' => 'Ngày sinh không được để trống',
             'ngaysinh.before' => 'Tuổi phải từ 18 trở lên',
+            'sdt.regex'=>'Số điện thoại không hợp lệ'
         ]);
         $ma = substr(date("Y"),-2).date("m").$request->giaoho;
         $tmp = Thanhvien::where('ma','LIKE',"%$ma%")->orderBy('ma', 'desc')->select('ma')->first();
