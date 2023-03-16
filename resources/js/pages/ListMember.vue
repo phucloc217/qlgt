@@ -20,7 +20,7 @@
           <td class="export-col">{{ thanhvien.tenthanh }}</td>
           <td class="export-col">{{ thanhvien.hoten.split(' ').slice(0, -1).join(' ') }}</td>
           <td class="export-col">{{ thanhvien.hoten.split(' ').slice(-1).join(' ') }}</td>
-          <td class="export-col">{{format_date(thanhvien.ngaysinh) }}</td>
+          <td class="export-col">{{ format_date(thanhvien.ngaysinh) }}</td>
           <td class="export-col">{{ thanhvien.sdt }}</td>
           <td class="export-col">{{ thanhvien.tengiaoho }}</td>
           <td class="export-col" v-if="thanhvien.trangthai == 1">Bình thường</td>
@@ -104,13 +104,12 @@ export default {
         return moment(String(value)).format('DD/MM/YYYY')
       }
     },
-  },
-  mounted() {
-    axios.get('http://127.0.0.1:8000/api/thanhvien')
-      .then(data => this.listthanhvien = data.data)
-      .catch(response => console.log(response));
-    window.JSZip = jsZip;
-    setTimeout(function () {
+
+    async getThanhVien() {
+      await axios.get(this.API_URL + '/thanhvien')
+        .then(data => this.listthanhvien = data.data)
+        .catch(response => console.log(response));
+      window.JSZip = jsZip;
       $("#table").DataTable({
         "dom": 'Bfrtip',
         "paging": true,
@@ -143,7 +142,10 @@ export default {
           'colvis'
         ],
       });
-    }, 1000);
+    }
+  },
+  mounted() {
+    this.getThanhVien();
 
   },
 };

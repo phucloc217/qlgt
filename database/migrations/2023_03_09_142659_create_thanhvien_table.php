@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('thanhvien', function (Blueprint $table) {
             $table->integer('ma')->primary();
-            $table->string('tenthanh', 30);
+            $table->string('tenthanh', 30)->nullable();
             $table->string('hoten', 50);
             $table->timestamp('ngaysinh')->nullable();
             $table->string('hotencha', 60)->nullable();

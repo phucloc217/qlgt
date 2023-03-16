@@ -37,6 +37,15 @@ class ThanhVienController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'hoten' => 'required|max:50',
+            'ngaysinh' => 'required|date|before:1/1/'.(date('Y')-17),
+        ],
+        [
+            'hoten.required' => 'Họ tên không được để trống',
+            'ngaysinh.required' => 'Ngày sinh không được để trống',
+            'ngaysinh.before' => 'Tuổi phải từ 18 trở lên',
+        ]);
         $ma = substr(date("Y"),-2).date("m").$request->giaoho;
         $tmp = Thanhvien::where('ma','LIKE',"%$ma%")->orderBy('ma', 'desc')->select('ma')->first();
         if($tmp==null)
