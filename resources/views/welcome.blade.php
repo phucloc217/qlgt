@@ -14,7 +14,7 @@ dir="ltr"
         <meta name="csrf-token" content="{{ csrf_token() }}">
          @vite('resources/css/app.css')
          @vite('resources/js/app.js')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
     <body >
         <div id="app">

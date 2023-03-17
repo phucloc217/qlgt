@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Response;
+
 class ThanhVienController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class ThanhVienController extends Controller
      */
     public function index()
     {
-        return Thanhvien::join('giaoho','thanhvien.giaoho','=','giaoho.id')->select('thanhvien.*','giaoho.tengiaoho')->get();
+        return Thanhvien::join('giaoho', 'thanhvien.giaoho', '=', 'giaoho.id')->select('thanhvien.*', 'giaoho.tengiaoho')->get();
     }
 
     /**
@@ -37,48 +38,46 @@ class ThanhVienController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'hoten' => 'required|max:50',
-            'ngaysinh' => 'required|date|before:1/1/'.(date('Y')-17),
-            'sdt'=>'regex:/(0)[0-9]{9}/'
-        ],
-        [
-            'hoten.required' => 'Họ tên không được để trống',
-            'ngaysinh.required' => 'Ngày sinh không được để trống',
-            'ngaysinh.before' => 'Tuổi phải từ 18 trở lên',
-            'sdt.regex'=>'Số điện thoại không hợp lệ'
-        ]);
-        $ma = substr(date("Y"),-2).date("m").$request->giaoho;
-        $tmp = Thanhvien::where('ma','LIKE',"%$ma%")->orderBy('ma', 'desc')->select('ma')->first();
-        if($tmp==null)
-            $ma=$ma.'01';
-        else
-        {
-            $ma =(int)$tmp['ma']; 
+        $request->validate(
+            [
+                'hoten' => 'required|max:50',
+                'ngaysinh' => 'required|date|before:1/1/' . (date('Y') - 17),
+                'sdt' => 'regex:/(0)[0-9]{9}/'
+            ],
+            [
+                'hoten.required' => 'Họ tên không được để trống',
+                'ngaysinh.required' => 'Ngày sinh không được để trống',
+                'ngaysinh.before' => 'Tuổi phải từ 18 trở lên',
+                'sdt.regex' => 'Số điện thoại không hợp lệ'
+            ]
+        );
+        $ma = substr(date("Y"), -2) . date("m") . $request->giaoho;
+        $tmp = Thanhvien::where('ma', 'LIKE', "%$ma%")->orderBy('ma', 'desc')->select('ma')->first();
+        if ($tmp == null)
+            $ma = $ma . '01';
+        else {
+            $ma = (int) $tmp['ma'];
             $ma++;
         }
-        $thanhvien =[
+        $thanhvien = [
             'ma' => $ma,
-            'tenthanh'=>$request->tenthanh,
-            'hoten'=>$request->hoten,
-            'ngaysinh'=> $request->ngaysinh,
-            'hotencha'=>$request->tencha,
-            'hotenme'=>$request->tenme,
-            'diachi'=>$request->diachi,
-            'ghichu'=>$request->ghichu,
-            'giaoho'=>$request->giaoho,
-            'sdt'=>$request->sdt,
-            'giaoly'=>$request->giaoly,
-            'matkhau'=>$request->sdt!=''?Hash::make($request->sdt):Hash::make('123'),
-            'trangthai'=>1,
+            'tenthanh' => $request->tenthanh,
+            'hoten' => $request->hoten,
+            'ngaysinh' => date("Y-m-d", strtotime($request->ngaysinh)),
+            'hotencha' => $request->tencha,
+            'hotenme' => $request->tenme,
+            'diachi' => $request->diachi,
+            'ghichu' => $request->ghichu,
+            'giaoho' => $request->giaoho,
+            'sdt' => $request->sdt,
+            'giaoly' => $request->giaoly,
+            'matkhau' => $request->sdt != '' ? Hash::make($request->sdt) : Hash::make('123'),
+            'trangthai' => 1,
         ];
-        if(Thanhvien::create($thanhvien))
-        {
+        if (Thanhvien::create($thanhvien)) {
             return response()->json($ma, Response::HTTP_CREATED);
-        }
-        else
-        {
-            return response()->json('',Response::HTTP_INTERNAL_SERVER_ERROR);
+        } else {
+            return response()->json('', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -90,7 +89,7 @@ class ThanhVienController extends Controller
      */
     public function show($id)
     {
-        //
+        return Thanhvien::join('giaoho', 'thanhvien.giaoho', '=', 'giaoho.id')->where('thanhvien.ma', '=', $id)->select('thanhvien.*', 'giaoho.tengiaoho')->get();
     }
 
     /**

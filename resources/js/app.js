@@ -9,7 +9,6 @@ import { iconsSet as icons } from '@/assets/icons'
 import 'vue3-toastify/dist/index.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-
 import App from './App.vue'
 
 const app = createApp(App).

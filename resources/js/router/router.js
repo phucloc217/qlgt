@@ -5,6 +5,9 @@ import {
     createMemoryHistory,
 } from "vue-router";
 import DefaultLayout from "../pages/index.vue";
+import MemberTable from "../components/MemberTable.vue";
+import MemberDetails from "../pages/MemberDetails.vue";
+import Page404 from "../pages/Page404.vue";
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
@@ -23,6 +26,22 @@ const router = createRouter({
                     path: "thanhvien",
                     name: "Thành viên",
                     component: () => import("../pages/ListMember.vue"),
+                    children: [
+                        {
+                            path: "",
+                            name: "Danh sách thành viên",
+                            components: {
+                                content: MemberTable,
+                            },
+                        },
+                        {
+                            path: ":id(\\d+)+",
+                            name: "Chi tiết",
+                            components: {
+                                content: MemberDetails,
+                            },
+                        },
+                    ],
                 },
                 {
                     path: "themthanhvien",
@@ -50,18 +69,27 @@ const router = createRouter({
                     component: () => import("../pages/ListAttendance.vue"),
                 },
                 {
-                    path: "/chitiet/:id",
+                    path: "qldiemdanh/chitiet/:id",
                     name: "Chi tiết điểm danh",
-                    component: () => import("../pages/AttendanceDashboard.vue"),
-                    
+                    children: [
+                        {
+                            path: "",
+                            name: "",
+                            component: () =>
+                                import("../pages/AttendanceDashboard.vue"),
+                        },
+                    ],
                 },
-                
             ],
         },
         {
             path: "/dangnhap",
             name: "Đăng nhập",
             component: () => import("../pages/login.vue"),
+        },
+        { 
+            path: "/:pathMatch(.*)*", 
+            component: Page404 
         },
     ],
 });
