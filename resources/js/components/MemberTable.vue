@@ -32,20 +32,17 @@
                     <td class="export-col" v-else-if="thanhvien.trangthai == 2">Tạm hoãn</td>
                     <td class="export-col" v-else-if="thanhvien.trangthai == 3">Vắng nhiều</td>
                     <td class="export-col" v-else="thanhvien.trangthai==4">Đã nghỉ</td>
-                    <td>
-                        <div class="col-2">
+                    <td class="row p-0 me-0">
+                        <div class="col-2 m-1 ">
+                            <router-link v-bind:to="'thanhvien/' + thanhvien.ma" class="btn btn-warning btn-sm m-1">
+                                <CIcon icon="cilPencil" size="sm" />
+                            </router-link>
+                        </div>
+                        <div class="col-2 m-1">
                             <button @click="showDeleteAlert(index, thanhvien.ma)" class="btn btn-danger btn-sm m-1">
                                 <CIcon icon="cilTrash" size="sm" />
                             </button>
                         </div>
-                        <div class="col-2">
-                            <router-link v-bind:to="'thanhvien/' + thanhvien.ma" class="btn btn-warning btn-sm m-1">
-                                <CIcon icon="cilPencil" size="sm" />
-                            </router-link>
-
-                        </div>
-
-
                     </td>
                 </tr>
 
@@ -175,6 +172,9 @@ export default {
                         targets: [5, 6, 7], visible: false
 
                     },
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 3, targets: 3 },
                 ],
                 "buttons": [
                     {

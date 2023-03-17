@@ -19,24 +19,33 @@
       </CCol>
 
       <CCol :md="6">
-        <CFormLabel for="tencha">Tên thánh, họ tên cha</CFormLabel>
-        <CFormInput id="tencha" name="tencha" type="text" v-model="form.tencha" />
+        <CFormLabel for="hotencha">Tên thánh, họ tên cha</CFormLabel>
+        <CFormInput id="hotencha" name="hotencha" type="text" v-model="form.hotencha" />
       </CCol>
       <CCol :md="6">
-        <CFormLabel for="tenme">Tên thánh, họ tên mẹ</CFormLabel>
-        <CFormInput id="tenme" name="tenme" type="text" v-model="form.tenme" />
+        <CFormLabel for="hotenme">Tên thánh, họ tên mẹ</CFormLabel>
+        <CFormInput id="hotenme" name="hotenme" type="text" v-model="form.hotenme" />
       </CCol>
 
-      <CCol :md="6">
+      <CCol :md="4">
         <CFormLabel for="sdt">Số điện thoại</CFormLabel>
         <CFormInput id="sdt" name="sdt" placeholder="Số điện thoại" type="tel" v-model="form.sdt" />
       </CCol>
-      <CCol :md="6">
+      <CCol :md="4">
         <CFormLabel for="giaoho">Giáo họ</CFormLabel>
         <CFormSelect id="giaoho" name="giaoho" v-model="form.giaoho" required>
           <option v-for="giaoho in listgiaoho" :value="giaoho.id">
             {{ giaoho.tengiaoho }}
           </option>
+        </CFormSelect>
+      </CCol>
+      <CCol :md="4">
+        <CFormLabel for="trangthai">Trạng thái</CFormLabel>
+        <CFormSelect id="trangthai" name="trangthai" v-model="form.trangthai" required>
+          <option value="1">Bình thường</option>
+          <option value="2">Tạm hoãn</option>
+          <option value="3">Vắng nhiều</option>
+          <option value="4">Đã nghỉ</option>
         </CFormSelect>
       </CCol>
       <CCol :xs="12">
@@ -73,13 +82,13 @@ export default {
     return {
       listgiaoho: null,
       thanhvien: null,
+      id:null,
       form: {
-        ma: '',
         tenthanh: '',
         hoten: '',
         ngaysinh: '',
-        tencha: '',
-        tenme: '',
+        hotencha: '',
+        hotenme: '',
         diachi: '',
         ghichu: '',
         giaoho: 3,
@@ -101,22 +110,9 @@ export default {
     },
     submitForm(event) {
       if (this.form.hoten == '' || this.form.ngaysinh == '') return;
-      axios.post(this.API_URL + '/thanhvien', this.form).then((res) => {
-        event.target.reset();
-        this.form.giaoho = 3;
-        document.getElementById('giaoly').checked = true;
-        this.form.tenthanh = '';
-        this.form.hoten = '';
-        this.form.ngaysinh = '';
-        this.form.tencha = '';
-        this.form.tenme = '';
-        this.form.diachi = '';
-        this.form.ghichu = '';
-        this.form.giaoho = 3;
-        this.form.sdt = '';
-        this.form.giaoly = 1;
+      axios.patch(this.API_URL + '/thanhvien/'+this.id, this.form).then((res) => {
         console.log(res);
-        toast.success('Thêm thành công!');
+        toast.success('Cập nhật thành công!');
       })
         .catch((error) => {
           console.log(error)
@@ -127,8 +123,8 @@ export default {
 
     },
     async getThongTin() {
-      let id = this.$router.currentRoute._value.params.id
-      await axios.get(this.API_URL + '/thanhvien/' + id)
+      this.id = this.$router.currentRoute._value.params.id
+      await axios.get(this.API_URL + '/thanhvien/' + this.id)
         .then(data => this.thanhvien = data.data)
         .catch(function (response) {
           toast.error(response, {
@@ -140,8 +136,8 @@ export default {
       this.form.hoten = this.thanhvien[0].hoten;
       this.form.tenthanh = this.thanhvien[0].tenthanh;
       this.form.ngaysinh = this.format_date(this.thanhvien[0].ngaysinh);
-      this.form.tencha = this.thanhvien[0].tencha;
-      this.form.tenme = this.thanhvien[0].tenme;
+      this.form.hotencha = this.thanhvien[0].hotencha;
+      this.form.hotenme = this.thanhvien[0].hotenme;
       this.form.diachi = this.thanhvien[0].diachi;
       this.form.ghichu = this.thanhvien[0].ghichu;
       this.form.giaoho = this.thanhvien[0].giaoho;
