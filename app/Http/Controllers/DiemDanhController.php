@@ -35,7 +35,15 @@ class DiemDanhController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'tendiemdanh' => 'required|max:50',
+            ],
+            [
+                'tendiemdanh.required' => 'Tên loại điểm danh không được để trống',
+            ]
+        );
+        return Diemdanh::create($request->all());
     }
 
     /**

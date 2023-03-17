@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="row mt-3 mb-3 justify-content-end">
+      <div class="col-1 text-end"> <button class="btn btn-primary">Thêm</button></div>
+       
+    </div>
     <table id="table" class="table table-secondary table-striped display nowrap mt-2 shadow mb-5 bg-body rounded">
       <thead>
         <tr>
