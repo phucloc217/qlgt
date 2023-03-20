@@ -34,15 +34,24 @@
                     <td class="export-col" v-else="thanhvien.trangthai==4">Đã nghỉ</td>
                     <td class="row p-0 me-0">
                         <div class="col-2 m-1 ">
-                            <router-link v-bind:to="'thanhvien/' + thanhvien.ma" class="btn btn-warning btn-sm m-1">
+                            <router-link v-bind:to="'thanhvien/' + thanhvien.ma"
+                                class="btn btn-warning btn-sm m-1 text-light">
                                 <CIcon icon="cilPencil" size="sm" />
                             </router-link>
                         </div>
                         <div class="col-2 m-1">
-                            <button @click="showDeleteAlert(index, thanhvien.ma)" class="btn btn-danger btn-sm m-1">
+                            <button @click="showModalUpdatePassword(thanhvien.ma)"
+                                class="btn btn-info btn-sm m-1 text-light">
+                                <CIcon icon="cilLockLocked" size="sm" />
+                            </button>
+                        </div>
+                        <div class="col-2 m-1">
+                            <button @click="showDeleteAlert(index, thanhvien.ma)"
+                                class="btn btn-danger btn-sm m-1 text-light">
                                 <CIcon icon="cilTrash" size="sm" />
                             </button>
                         </div>
+
                     </td>
                 </tr>
 
@@ -144,6 +153,38 @@ export default {
 
                 }
             });
+        },
+        async showModalUpdatePassword(id) {
+            const { value: matkhau } = await this.$swal({
+                title: 'Thay đổi mật khẩu',
+                input: 'password',
+                inputPlaceholder: 'Nhập mật khẩu mới',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Bạn cần nhập mật khẩu mới!'
+                    }
+                },
+                inputAttributes: {
+                    maxlength: 16,
+                    autocapitalize: 'off',
+                    autocorrect: 'off',
+                    autocomplete: 'new-password'
+                }
+            })
+            if (matkhau) {
+               
+                await axios.patch(this.API_URL + '/thanhvien/matkhau/' + id,matkhau)
+                .then(function (data) {
+                    toast.success("Đổi mật khẩu thành công", {
+                        autoClose: 1000,
+                    });
+                })
+                .catch(function (response) {
+                    toast.error(response.data, {
+                        autoClose: 1000,
+                    });
+                });
+            }
         },
 
         async getThanhVien() {

@@ -25,5 +25,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('giaoho', GiaoHoController::class);
 Route::resource('thanhvien', ThanhVienController::class);
 Route::resource('diemdanh', DiemDanhController::class);
+Route::patch('thanhvien/matkhau/{id}', [ThanhVienController::class,'updatePassword']);
 Route::delete('thanhvien/{id}', [ThanhVienController::class,'destroy']);
 Route::resource('user', UserController::class);

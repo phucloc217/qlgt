@@ -113,9 +113,19 @@ class ThanhVienController extends Controller
     public function update(Request $request, Thanhvien $thanhvien)
     {
         $thanhvien->update($request->all());
-        if($thanhvien->save())
-            return response()->json($thanhvien, Response::HTTP_OK);
+        if ($thanhvien->save())
+            return response()->json('success', Response::HTTP_OK);
         return response()->json('error', Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    public function updatePassword(Request $request, $id)
+    {
+        $thanhvien = Thanhvien::find($id);
+        if ($thanhvien) {
+            $thanhvien->matkhau = Hash::make($request->matkhau);
+            if ($thanhvien->save())
+                return response()->json('success', Response::HTTP_OK);
+        } else
+            return response()->json('error', Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
