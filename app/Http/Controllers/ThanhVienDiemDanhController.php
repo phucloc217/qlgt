@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Diemdanh;
+use App\Models\ThanhvienDiemdanh;
 use Illuminate\Http\Request;
 
-class DiemDanhController extends Controller
+class ThanhVienDiemDanhController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,7 @@ class DiemDanhController extends Controller
      */
     public function index()
     {
-        return Diemdanh::all();
-    }
-    public function getActive()
-    {
-        return Diemdanh::where('trangthai','=','1')->get();
+        //
     }
 
     /**
@@ -41,22 +37,28 @@ class DiemDanhController extends Controller
     {
         $request->validate(
             [
-                'tendiemdanh' => 'required|max:50',
+                'madiemdanh' => 'required',
+                'mathanhvien' => 'required',
             ],
             [
-                'tendiemdanh.required' => 'Tên loại điểm danh không được để trống',
+                'madiemdanh.required' => 'Mã điểm danh không được để trống',
+                'mathanhvien.required' => 'Mã thành viên không được để trống',
             ]
         );
-        return Diemdanh::create($request->all());
+        $thanhvien = [
+            'madiemdanh' => $request->madiemdanh,
+            'mathanhvien' => $request->mathanhvien,
+        ];
+        return ThanhvienDiemdanh::create($thanhvien);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Diemdanh  $diemdanh
+     * @param  \App\Models\ThanhvienDiemdanh  $thanhvienDiemdanh
      * @return \Illuminate\Http\Response
      */
-    public function show(Diemdanh $diemdanh)
+    public function show(ThanhvienDiemdanh $thanhvienDiemdanh)
     {
         //
     }
@@ -64,10 +66,10 @@ class DiemDanhController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Diemdanh  $diemdanh
+     * @param  \App\Models\ThanhvienDiemdanh  $thanhvienDiemdanh
      * @return \Illuminate\Http\Response
      */
-    public function edit(Diemdanh $diemdanh)
+    public function edit(ThanhvienDiemdanh $thanhvienDiemdanh)
     {
         //
     }
@@ -76,10 +78,10 @@ class DiemDanhController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Diemdanh  $diemdanh
+     * @param  \App\Models\ThanhvienDiemdanh  $thanhvienDiemdanh
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Diemdanh $diemdanh)
+    public function update(Request $request, ThanhvienDiemdanh $thanhvienDiemdanh)
     {
         //
     }
@@ -87,10 +89,10 @@ class DiemDanhController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Diemdanh  $diemdanh
+     * @param  \App\Models\ThanhvienDiemdanh  $thanhvienDiemdanh
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Diemdanh $diemdanh)
+    public function destroy(ThanhvienDiemdanh $thanhvienDiemdanh)
     {
         //
     }

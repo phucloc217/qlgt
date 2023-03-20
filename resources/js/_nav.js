@@ -59,4 +59,14 @@ export default [
     to: '/maqr',
     icon: 'cil-qr-code',
   },
+  {
+    component: 'CNavTitle',
+    name: 'Cài đặt',
+  },
+  {
+    component: 'CNavItem',
+    name: 'Cài đặt',
+    to: '/caidat',
+    icon: 'cil-settings',
+  },
 ]

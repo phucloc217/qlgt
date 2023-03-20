@@ -65,7 +65,9 @@ class Thanhvien extends Model
 		'matkhau',
 		'trangthai'
 	];
-
+	protected $hidden = [
+		'matkhau'
+	];
 	public function giaoho()
 	{
 		return $this->belongsTo(Giaoho::class, 'giaoho');

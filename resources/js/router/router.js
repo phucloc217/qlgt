@@ -56,7 +56,20 @@ const router = createRouter({
                 {
                     path: "diemdanh",
                     name: "Điểm Danh",
-                    component: () => import("../pages/ScanQR.vue"),
+                    children: [
+                        {
+                            path: "",
+                            name: "",
+                            component: () =>
+                                import("../pages/Attendance.vue"),
+                        },
+                        {
+                            path: ":id(\\d+)+",
+                            name: "",
+                            component: () =>
+                                import("../pages/ScanQR.vue"),
+                        },
+                    ],
                 },
                 {
                     path: "quanlytaikhoan",

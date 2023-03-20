@@ -20,7 +20,7 @@ import QrcodeVue from 'qrcode.vue'
 export default {
   data() {
     return {
-      value: '12354-Nguyễn Văn A - Mẹ Thiên Chúa',
+      value: '2302301',
       size: 300,
     }
   },

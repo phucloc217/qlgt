@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 class ThanhvienDiemdanh extends Model
 {
 	protected $table = 'thanhvien_diemdanh';
-
+	public $incrementing = true;
 	protected $casts = [
 		'mathanhvien' => 'int',
 		'madiemdanh' => 'int',
