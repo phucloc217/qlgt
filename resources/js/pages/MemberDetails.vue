@@ -1,4 +1,5 @@
 <template>
+  
   <div>
 
     <CForm class="row g-3 needs-validation" novalidate @submit.prevent="submitForm" method="post">
@@ -71,6 +72,7 @@
 import axios from 'axios';
 import { toast } from 'vue3-toastify';
 import moment from 'moment'
+import LoadingScreen from '../components/LoadingScreen.vue'
 export default {
   name: 'MemberDetails',
   computed: {
@@ -78,11 +80,15 @@ export default {
       return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     },
   },
+  components:{
+    LoadingScreen
+  },
   data() {
     return {
       listgiaoho: null,
       thanhvien: null,
-      id:null,
+      loading: false,
+      id: null,
       form: {
         tenthanh: '',
         hoten: '',
@@ -110,7 +116,7 @@ export default {
     },
     submitForm(event) {
       if (this.form.hoten == '' || this.form.ngaysinh == '') return;
-      axios.patch(this.API_URL + '/thanhvien/'+this.id, this.form).then((res) => {
+      axios.patch(this.API_URL + '/thanhvien/' + this.id, this.form).then((res) => {
         console.log(res);
         toast.success('Cập nhật thành công!');
       })
@@ -171,9 +177,13 @@ export default {
       })()
     }
   },
-  mounted() {
+  created() {
+    //this.loading=true;
     this.getGiaoHo();
     this.getThongTin();
+  },
+  mounted() {
+
   }
 
 }

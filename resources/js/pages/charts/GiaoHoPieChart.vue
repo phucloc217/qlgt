@@ -5,12 +5,18 @@
 <script>
 import { CChartPie } from '@coreui/vue-chartjs'
 export default {
-  name: 'CChartPieExample',
+  name: 'GiaoHoPieChart',
   components: { CChartPie },
+  methods:{
+    async getSoLuongThanhVien()
+    {
+
+    }
+  },
   computed: {
     defaultData() {
       return {
-        labels: ['VueJs', 'EmberJs', 'VueJs', 'AngularJs'],
+        labels: ['Mẹ Thiên Chúa', 'Fatima', 'Vô Nhiễm', 'Truyền Tin'],
         datasets: [
           {
             backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
