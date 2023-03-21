@@ -20,6 +20,20 @@ class ThanhVienController extends Controller
         return Thanhvien::join('giaoho', 'thanhvien.giaoho', '=', 'giaoho.id')->select('thanhvien.*', 'giaoho.tengiaoho')->get();
     }
 
+    public function search(Request $request)
+    {
+        $request->validate(
+            [
+                'keyword' => 'required',
+
+            ],
+            [
+                'keyword.required' => 'Bạn phải nhập keyword'
+            ]
+        );
+        return Thanhvien::join('giaoho', 'thanhvien.giaoho', '=', 'giaoho.id')->where('hoten', 'LIKE', "%$request->keyword%")->orWhere('ma', '=', $request->keyword)->select('thanhvien.*', 'giaoho.tengiaoho')->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

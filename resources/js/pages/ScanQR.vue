@@ -16,6 +16,18 @@
           <strong>Tìm kiếm</strong>
         </CCardHeader>
         <CCardBody>
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <CInputGroup class="mb-3">
+                <CFormInput placeholder="Tìm kiếm" aria-label="Tìm kiếm" aria-describedby="button-addon2" id="searchInput"
+                  v-model="keyword" />
+                <CButton type="button" color="primary" variant="outline" id="searchBtn" @click="search()">
+                  <CIcon icon="cilSearch" size="sm" />
+                </CButton>
+              </CInputGroup>
+            </div>
+
+          </div>
           <table id="table" class="table table-secondary table-striped display nowrap mt-2 shadow mb-5 bg-body rounded"
             style="width:100%">
             <thead>
@@ -30,14 +42,6 @@
               </tr>
             </thead>
             <tbody>
-              <!-- <tr v-for="thanhvien, index  in listthanhvien">
-                    <td class="export-col">{{ thanhvien.ma }}</td>
-                    <td class="export-col">{{ thanhvien.tenthanh }}</td>
-                    <td class="export-col">{{ thanhvien.hoten.split(' ').slice(0, -1).join(' ') }}</td>
-                    <td class="export-col">{{ thanhvien.hoten.split(' ').slice(-1).join(' ') }}</td>
-                    <td class="export-col">{{ format_date(thanhvien.ngaysinh) }}</td>
-                    <td class="export-col">{{ thanhvien.tengiaoho }}</td>
-                </tr> -->
 
             </tbody>
             <tfoot>
@@ -63,6 +67,7 @@
           <strong>Đã điểm danh</strong>
         </CCardHeader>
         <CCardBody>
+
           <table id="table1" class="table table-secondary table-striped display nowrap mt-2 shadow mb-5 bg-body rounded"
             style="width:100%">
             <thead>
@@ -113,8 +118,8 @@ import("datatables.net-buttons/js/buttons.colVis");
 import("datatables.net-responsive-bs5");
 import("datatables.net-searchpanes-bs5");
 import moment from 'moment'
+import axios from 'axios';
 export default {
-
   components: {
     QrStream,
   },
@@ -127,6 +132,8 @@ export default {
     let validId = null
     let thanhvien = null
     let table1 = null
+    let table2 = null
+    let keyword = ''
     return {
       validId,
       thanhvien,
@@ -134,7 +141,9 @@ export default {
         madiemdanh: '',
         mathanhvien: '',
       },
+      table2,
       table1,
+      keyword,
     }
   },
 
@@ -201,7 +210,7 @@ export default {
         .catch(response => console.log(response));
     },
     createTable() {
-      $("#table").DataTable({
+      this.table2 = $("#table").DataTable({
         "paging": true,
         "searching": false,
         "responsive": true,
@@ -233,9 +242,48 @@ export default {
           "zeroRecords": " ",
         },
       });
-    }
+    },
+    /////
 
+    async search() {
+      this.table2.rows().clear().draw();
+      let keyword = this.keyword
+      let list = []
+      await axios.get(this.API_URL + '/thanhvien/search', {
+        params: { keyword: keyword }
+      })
+        .then(function (res) {
+          list = res.data
+        })
+      console.log(list)
+      list.forEach(element => {
+        let cell1 = element.ma;
+        let cell2 = element.tenthanh;
+        let cell3 = element.hoten.split(' ').slice(0, -1).join(' ');;
+        let cell4 = element.hoten.split(' ').slice(-1).join(' ');;
+        let cell5 = moment(element.ngaysinh).format('DD/MM/yyyy');
+        let cell6 = element.tengiaoho;
+        let cell7 = element.tengiaoho;
+        this.table2.row.add(
+          {
+            0: cell1,
+            1: cell2,
+            2: cell3,
+            3: cell4,
+            4: cell5,
+            5: cell6,
+            6: cell7,
+          }
+        ).draw();
+      });
+
+    },
+
+
+    //////
   },
+
+
   created() {
     this.checkValidID();
   },

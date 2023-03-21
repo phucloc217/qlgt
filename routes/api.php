@@ -22,7 +22,7 @@ use App\Http\Controllers\UserController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('thanhvien/search', [ThanhVienController::class,'search']);
 Route::resource('giaoho', GiaoHoController::class);
 Route::resource('thanhvien', ThanhVienController::class);
 Route::resource('diemdanh', DiemDanhController::class);
@@ -30,4 +30,5 @@ Route::resource('diemdanhqr', ThanhVienDiemDanhController::class);
 Route::get('dsdiemdanh', [DiemDanhController::class,'getActive']);
 Route::patch('thanhvien/matkhau/{id}', [ThanhVienController::class,'updatePassword']);
 Route::delete('thanhvien/{id}', [ThanhVienController::class,'destroy']);
+
 Route::resource('user', UserController::class);

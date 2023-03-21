@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ThanhvienDiemdanh;
 use Illuminate\Http\Request;
-
+use Symfony\Component\HttpFoundation\Response;
 class ThanhVienDiemDanhController extends Controller
 {
     /**
@@ -45,11 +45,15 @@ class ThanhVienDiemDanhController extends Controller
                 'mathanhvien.required' => 'Mã thành viên không được để trống',
             ]
         );
-        $thanhvien = [
-            'madiemdanh' => $request->madiemdanh,
-            'mathanhvien' => $request->mathanhvien,
-        ];
-        return ThanhvienDiemdanh::create($thanhvien);
+        $thanhvien = ThanhvienDiemdanh::where('mathanhvien', '=', $request->mathanhvien)->where('madiemdanh', '=', $request->madiemdanh)->whereRaw('cast(created_at AS date) =?', date("Y-m-d"))->get();
+        if ($thanhvien->isEmpty()) {
+            $thanhvien = [
+                'madiemdanh' => $request->madiemdanh,
+                'mathanhvien' => $request->mathanhvien,
+            ];
+            return ThanhvienDiemdanh::create($thanhvien);
+        }
+        response()->json('Đã điểm danh', Response::HTTP_ACCEPTED);
     }
 
     /**
